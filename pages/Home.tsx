@@ -4,6 +4,7 @@ import DonationTracker from '../components/DonationTracker';
 import BloodDonation from '../components/BloodDonation';
 import VideoGallery from '../components/VideoGallery';
 import PhotoGallery from '../components/PhotoGallery';
+import Volunteer from '../components/Volunteer';
 import Jobs from '../components/Jobs';
 
 interface HomeProps {
@@ -17,29 +18,15 @@ const Home: React.FC<HomeProps> = ({ setRoute }) => {
       
       <DonationTracker setRoute={setRoute} />
       
-      {/* New Blood Donation Section */}
       <BloodDonation />
 
-      {/* New Video & Photo Gallery */}
       <VideoGallery />
       <PhotoGallery />
       
-      {/* Quick Info / Call to Action Banner */}
-      <section className="bg-ngo-blue py-16 text-center px-4 relative z-20">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6">
-            স্বেচ্ছাসেবক হিসেবে যোগ দিন
-          </h2>
-          <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
-            আপনার সময় এবং দক্ষতা দিয়ে সমাজের অবহেলিত মানুষের পাশে দাঁড়ান। আমাদের সাথে যুক্ত হয়ে পরিবর্তন আনুন নিজের হাতে।
-          </p>
-          <button className="bg-white text-ngo-blue hover:bg-slate-50 font-bold px-8 py-4 rounded-full text-lg shadow-xl transition-transform hover:-translate-y-1">
-            রেজিস্ট্রেশন করুন
-          </button>
-        </div>
-      </section>
+      {/* Replaced inline section with robust Volunteer component */}
+      <Volunteer />
 
-      <Jobs />
+      <Jobs setRoute={setRoute} />
     </>
   );
 };

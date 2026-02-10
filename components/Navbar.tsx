@@ -25,6 +25,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
   const navLinks = [
     { name: 'হোম', route: 'home' },
     { name: 'আমাদের কাজ', route: 'work' },
+    { name: 'রক্তদান', route: 'blood-donation' },
+    { name: 'গ্যালারি', route: 'gallery' },
+    { name: 'স্বেচ্ছাসেবক', route: 'volunteer' },
+    { name: 'ক্যারিয়ার', route: 'all-jobs' },
   ];
 
   return (
@@ -55,7 +59,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navLinks.map((link) => (
             <button 
               key={link.name} 
@@ -77,7 +81,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
         <div className="flex items-center gap-4">
           <button 
             onClick={() => handleNavClick('donate')}
-            className={`px-6 py-2.5 rounded-full font-bold shadow-lg transition-transform hover:scale-105 active:scale-95 ${
+            className={`px-5 py-2.5 lg:px-6 rounded-full font-bold shadow-lg transition-transform hover:scale-105 active:scale-95 ${
               currentRoute === 'donate' 
                 ? 'bg-white text-ngo-orange border-2 border-ngo-orange shadow-none' 
                 : 'bg-ngo-orange hover:bg-orange-600 text-white shadow-orange-500/30'

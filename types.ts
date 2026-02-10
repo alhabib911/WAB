@@ -23,10 +23,26 @@ export interface ImpactLocation {
 export interface JobPost {
   id: string;
   title: string;
+  description: string;
+  responsibility: string;
   location: string;
-  type: string;
+  workMode: string; // Onsite, Remote
+  type: string;     // Full-time, Part-time
   deadline: string;
   salary: string;
+  applyEmail: string;
+}
+
+export interface Volunteer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  bloodGroup: string;
+  nid: string;
+  division: string;
+  district: string;
+  thana: string;
 }
 
 export interface Product {
