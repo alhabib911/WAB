@@ -1,5 +1,7 @@
 import React from 'react';
 import ImpactMap from '../components/ImpactMap';
+import VideoGallery from '../components/VideoGallery';
+import PhotoGallery from '../components/PhotoGallery';
 
 const OurWork: React.FC = () => {
   return (
@@ -14,10 +16,14 @@ const OurWork: React.FC = () => {
             দেশের প্রতিটি কোণায় আমরা
           </h1>
           <p className="text-slate-300 text-lg md:text-xl leading-relaxed">
-            ম্যাপের মাধ্যমে দেখুন আমাদের চলমান প্রজেক্টগুলো। প্রতিটি পয়েন্টে লুকিয়ে আছে একেকটি নতুন জীবনের গল্প, আপনার সামান্য সাহায্যেই যা সম্ভব হয়েছে।
+            ম্যাপের ও গ্যালারির মাধ্যমে দেখুন আমাদের চলমান প্রজেক্টগুলো। প্রতিটি পয়েন্টে ও ছবিতে লুকিয়ে আছে একেকটি নতুন জীবনের গল্প, আপনার সামান্য সাহায্যেই যা সম্ভব হয়েছে।
           </p>
         </div>
       </div>
+
+      {/* The Gallery Components */}
+      <VideoGallery />
+      <PhotoGallery />
 
       {/* The Map Component */}
       <ImpactMap />

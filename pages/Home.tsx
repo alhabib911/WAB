@@ -1,6 +1,9 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import DonationTracker from '../components/DonationTracker';
+import BloodDonation from '../components/BloodDonation';
+import VideoGallery from '../components/VideoGallery';
+import PhotoGallery from '../components/PhotoGallery';
 import Jobs from '../components/Jobs';
 
 interface HomeProps {
@@ -12,8 +15,14 @@ const Home: React.FC<HomeProps> = ({ setRoute }) => {
     <>
       <Hero setRoute={setRoute} />
       
-      {/* Restored Donation Tracker section */}
       <DonationTracker setRoute={setRoute} />
+      
+      {/* New Blood Donation Section */}
+      <BloodDonation />
+
+      {/* New Video & Photo Gallery */}
+      <VideoGallery />
+      <PhotoGallery />
       
       {/* Quick Info / Call to Action Banner */}
       <section className="bg-ngo-blue py-16 text-center px-4 relative z-20">
