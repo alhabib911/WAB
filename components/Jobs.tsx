@@ -106,7 +106,7 @@ const Jobs: React.FC<JobsProps> = ({ setRoute }) => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
           <div className="text-left">
             <h2 className="text-sm font-bold text-ngo-blue uppercase tracking-widest mb-2">ক্যারিয়ার</h2>
-            <h3 className="text-3xl md:text-5xl font-extrabold text-ngo-dark mb-4">
+            <h3 className="text-xl md:text-3xl font-extrabold text-ngo-dark mb-4">
               জব পোর্টাল
             </h3>
             <p className="text-slate-600 max-w-2xl text-lg">

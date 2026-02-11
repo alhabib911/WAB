@@ -29,7 +29,7 @@ const PhotoGallery: React.FC = () => {
           <span className="inline-block py-1.5 px-4 rounded-full bg-orange-100 text-orange-600 font-extrabold text-sm tracking-widest mb-4 border border-orange-200 uppercase">
             ফটো গ্যালারি
           </span>
-          <h3 className="text-4xl md:text-5xl font-black text-slate-800">
+          <h3 className="text-2xl md:text-3xl font-black text-slate-800">
             স্মৃতির পাতায় <span className="text-orange-500">আমাদের কাজ</span>
           </h3>
         </div>

@@ -101,16 +101,16 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
               <img src={headerSettings.image} alt="Logo" className="h-10 w-auto object-contain" />
             ) : (
               <>
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-ngo-green to-teal-600 flex items-center justify-center shadow-md transform group-hover:-translate-y-1 transition-transform">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
+                <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-ngo-green to-teal-600 flex items-center justify-center shadow-md transform group-hover:-translate-y-1 transition-transform">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 lg:w-6 lg:h-6 text-white">
                     <path d="M2.25 4.5l4 15h2.5l3.25-11.5L15.25 19.5h2.5l4-15h-2.5l-2.5 10.5-3.5-12h-2.5l-3.5 12-2.5-10.5h-2.5z" />
                   </svg>
                 </div>
                 <div className="flex flex-col leading-none justify-center">
-                  <span className={`text-2xl font-brand font-black tracking-wider ${isScrolled || currentRoute !== 'home' ? 'text-ngo-dark' : 'text-ngo-dark lg:text-white'}`}>
+                  <span className={`text-lg lg:text-xl font-brand font-black tracking-wider ${isScrolled || currentRoute !== 'home' ? 'text-ngo-dark' : 'text-ngo-dark lg:text-white'}`}>
                     {headerSettings.text || 'WAB'}
                   </span>
-                  <span className={`text-[9px] font-bold tracking-[0.15em] uppercase mt-0.5 ${isScrolled || currentRoute !== 'home' ? 'text-ngo-green' : 'text-ngo-green lg:text-teal-200'}`}>
+                  <span className={`text-[8px] font-bold tracking-[0.15em] uppercase mt-0.5 ${isScrolled || currentRoute !== 'home' ? 'text-ngo-green' : 'text-ngo-green lg:text-teal-200'}`}>
                     We are Bangladesh
                   </span>
                 </div>
@@ -123,7 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
               <button 
                 key={link.route} 
                 onClick={() => handleNavClick(link.route)}
-                className={`font-medium transition-colors text-sm xl:text-base ${
+                className={`font-medium transition-colors text-xs xl:text-sm ${
                   currentRoute === link.route 
                     ? 'text-ngo-green font-bold' 
                     : isScrolled || currentRoute !== 'home' 
@@ -136,7 +136,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
             ))}
             <button 
               onClick={() => handleNavClick(isLoggedIn ? 'dashboard' : 'login')}
-              className={`font-medium transition-colors text-sm xl:text-base ${
+              className={`font-medium transition-colors text-xs xl:text-sm ${
                 currentRoute === 'login' || currentRoute === 'dashboard'
                   ? 'text-ngo-green font-bold' 
                   : isScrolled || currentRoute !== 'home' 
@@ -152,7 +152,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
             {/* Language Toggle */}
             <button 
               onClick={toggleLanguage}
-              className={`px-3 py-1.5 text-xs lg:text-sm rounded-full font-bold transition-all border ${
+              className={`px-2.5 py-1 text-[10px] lg:text-xs rounded-full font-bold transition-all border ${
                 isScrolled || currentRoute !== 'home' 
                   ? 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200' 
                   : 'bg-white/20 text-white border-white/30 hover:bg-white/30 backdrop-blur-sm'
@@ -164,7 +164,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
             <button 
               disabled={!isLoggedIn}
               onClick={() => isLoggedIn && setShowAdminContact(true)}
-              className={`hidden md:flex px-3 py-1.5 lg:px-4 lg:py-2 text-xs lg:text-sm rounded-full font-bold transition-all ${
+              className={`hidden md:flex px-3 py-1 lg:px-4 lg:py-1.5 text-[10px] lg:text-xs rounded-full font-bold transition-all ${
                 isLoggedIn 
                   ? 'bg-slate-800 hover:bg-slate-900 text-white shadow-lg hover:scale-105 active:scale-95 shadow-slate-500/30' 
                   : 'bg-slate-200 text-slate-400 cursor-not-allowed'
@@ -176,7 +176,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
             
             <button 
               onClick={() => handleNavClick('donate')}
-              className={`hidden sm:block px-4 py-1.5 lg:px-5 lg:py-2 text-sm lg:text-base rounded-full font-bold shadow-lg transition-transform hover:scale-105 active:scale-95 ${
+              className={`hidden sm:block px-4 py-1.5 lg:px-5 lg:py-1.5 text-xs lg:text-sm rounded-full font-bold shadow-lg transition-transform hover:scale-105 active:scale-95 ${
                 currentRoute === 'donate' 
                   ? 'bg-white text-ngo-orange border-2 border-ngo-orange shadow-none' 
                   : 'bg-ngo-orange hover:bg-orange-600 text-white shadow-orange-500/30'
@@ -186,7 +186,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
             </button>
             
             <button 
-              className="lg:hidden p-2 text-slate-700 bg-slate-100 rounded-full ml-1"
+              className="lg:hidden p-1.5 text-slate-700 bg-slate-100 rounded-full ml-1"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
@@ -206,7 +206,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
               <button 
                 key={link.route} 
                 onClick={() => handleNavClick(link.route)}
-                className={`text-left font-bold py-2.5 px-4 rounded-xl ${
+                className={`text-left font-bold py-2.5 px-4 rounded-xl text-sm ${
                   currentRoute === link.route ? 'bg-green-50 text-ngo-green' : 'text-slate-700 hover:bg-slate-50'
                 }`}
               >
@@ -215,20 +215,20 @@ const Navbar: React.FC<NavbarProps> = ({ currentRoute, setRoute }) => {
             ))}
             <button 
               onClick={() => handleNavClick(isLoggedIn ? 'dashboard' : 'login')}
-              className={`text-left font-bold py-2.5 px-4 rounded-xl text-slate-700 hover:bg-slate-50`}
+              className={`text-left font-bold py-2.5 px-4 rounded-xl text-sm text-slate-700 hover:bg-slate-50`}
             >
               {window.t(isLoggedIn ? 'ড্যাশবোর্ড' : 'লগইন', isLoggedIn ? 'Dashboard' : 'Login')}
             </button>
             <button 
               onClick={() => { handleNavClick('donate'); setIsMobileMenuOpen(false); }}
-              className={`text-left font-bold py-2.5 px-4 rounded-xl text-ngo-orange hover:bg-orange-50`}
+              className={`text-left font-bold py-2.5 px-4 rounded-xl text-sm text-ngo-orange hover:bg-orange-50`}
             >
               {window.t('দান করুন', 'Donate Now')}
             </button>
             <button 
               disabled={!isLoggedIn}
               onClick={() => { if(isLoggedIn) { setShowAdminContact(true); setIsMobileMenuOpen(false); } }}
-              className={`text-left font-bold py-2.5 px-4 rounded-xl ${isLoggedIn ? 'text-slate-800 bg-slate-100' : 'text-slate-400 bg-slate-50'}`}
+              className={`text-left font-bold py-2.5 px-4 rounded-xl text-sm ${isLoggedIn ? 'text-slate-800 bg-slate-100' : 'text-slate-400 bg-slate-50'}`}
             >
               Admin Contact
             </button>

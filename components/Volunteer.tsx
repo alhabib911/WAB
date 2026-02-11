@@ -132,7 +132,7 @@ const Volunteer: React.FC = () => {
             <span className="inline-block py-1 px-4 rounded-full bg-white/10 border border-white/20 text-blue-200 font-extrabold text-xs tracking-widest mb-6 uppercase animate-slide-up">
               আমাদের সাথে যুক্ত হোন
             </span>
-            <h2 className="text-4xl md:text-6xl font-black mb-6 leading-tight animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <h2 className="text-2xl md:text-4xl font-black mb-6 leading-tight animate-slide-up" style={{ animationDelay: '0.1s' }}>
               স্বেচ্ছাসেবক হিসেবে যোগ দিন
             </h2>
             <p className="text-slate-300 text-lg mb-10 leading-relaxed font-medium animate-slide-up" style={{ animationDelay: '0.2s' }}>

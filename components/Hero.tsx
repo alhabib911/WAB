@@ -28,11 +28,13 @@ const useCountUp = (end: number, duration: number = 2000) => {
 
 const Hero: React.FC<HeroProps> = ({ setRoute }) => {
   const [heroData, setHeroData] = useState({
+    tag: 'পরিবর্তনের অংশ হোন',
     title: 'একসাথে আমরা গড়বো',
     highlight: 'নতুন বাংলাদেশ',
     subtitle: 'আপনার ছোট একটি সাহায্য বদলে দিতে পারে অসংখ্য মানুষের জীবন। আসুন, কাঁধে কাঁধ মিলিয়ে কাজ করি একটি সুন্দর ভবিষ্যতের জন্য।',
     btn1: 'জরুরী সহায়তা দিন',
-    btn2: 'আমাদের কাজ দেখুন'
+    btn2: 'আমাদের কাজ দেখুন',
+    bgImage: 'https://picsum.photos/id/1018/1920/1080'
   });
 
   const districts = useCountUp(64, 2000);
@@ -42,7 +44,7 @@ const Hero: React.FC<HeroProps> = ({ setRoute }) => {
   useEffect(() => {
     const settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
     if (settings.hero) {
-      setHeroData(settings.hero);
+      setHeroData(prev => ({ ...prev, ...settings.hero }));
     }
   }, []);
 
@@ -56,8 +58,8 @@ const Hero: React.FC<HeroProps> = ({ setRoute }) => {
     <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden -mt-20 lg:-mt-24">
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://picsum.photos/id/1018/1920/1080" 
-          alt="Helping hands" 
+          src={heroData.bgImage || "https://picsum.photos/id/1018/1920/1080"} 
+          alt="Hero Background" 
           className="w-full h-full object-cover object-center"
           loading="lazy"
         />
@@ -66,10 +68,10 @@ const Hero: React.FC<HeroProps> = ({ setRoute }) => {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col items-start text-white max-w-5xl mt-16">
         <span className="inline-block py-1 px-3 rounded-full bg-ngo-green/20 border border-ngo-green/30 text-ngo-green font-semibold mb-6 backdrop-blur-sm animate-slide-up" style={{ animationDelay: '0.1s' }}>
-          পরিবর্তনের অংশ হোন
+          {heroData.tag}
         </span>
         
-        <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6 max-w-3xl drop-shadow-lg animate-slide-up" style={{ animationDelay: '0.2s' }}>
+        <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6 max-w-3xl drop-shadow-lg animate-slide-up" style={{ animationDelay: '0.2s' }}>
           {heroData.title} <br/>
           <span className="text-ngo-green bg-clip-text text-transparent bg-gradient-to-r from-ngo-green to-teal-400">
             {heroData.highlight}
@@ -102,7 +104,7 @@ const Hero: React.FC<HeroProps> = ({ setRoute }) => {
         <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 border-t border-white/20 pt-8 w-full max-w-3xl animate-slide-up" style={{ animationDelay: '0.5s' }}>
           <div>
             <div className="text-3xl md:text-4xl font-extrabold text-white mb-1">
-              {new Intl.NumberFormat('bn-BD').format(districts)}+
+              {new Intl.NumberFormat('bn-BD').format(districts)}
             </div>
             <div className="text-slate-300 text-sm md:text-base">জেলায় কার্যক্রম</div>
           </div>

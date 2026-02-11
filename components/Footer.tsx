@@ -21,7 +21,7 @@ const Footer: React.FC<FooterProps> = ({ setRoute }) => {
   useEffect(() => {
     const settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
     if (settings.footer) {
-      setFooterSettings(settings.footer);
+      setFooterSettings(prev => ({ ...prev, ...settings.footer }));
     } else if (settings.footerText) { 
       setFooterSettings(prev => ({ ...prev, tagline: settings.footerText, text: settings.siteName || prev.text }));
     }
@@ -92,7 +92,7 @@ const Footer: React.FC<FooterProps> = ({ setRoute }) => {
               {footerSettings.tagline}
             </p>
             <div className="flex items-center gap-3">
-              {footerSettings.social.map((item: any) => (
+              {footerSettings.social?.map((item: any) => (
                 <a key={item.id} href={item.link} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-ngo-green hover:text-white transition-colors overflow-hidden">
                   <span className="sr-only">Social Link {item.id}</span>
                   {item.icon && item.icon.startsWith('data:') ? (

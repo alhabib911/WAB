@@ -79,11 +79,11 @@ const Dashboard: React.FC<DashboardProps> = ({ setRoute }) => {
             <button
               key={link.id}
               onClick={() => setActiveTab(link.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-[12px] font-bold transition-all duration-200 ${
                 activeTab === link.id ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
               }`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d={link.icon} />
               </svg>
               {link.label}
@@ -91,12 +91,12 @@ const Dashboard: React.FC<DashboardProps> = ({ setRoute }) => {
           ))}
         </div>
         <div className="p-4 border-t border-slate-100 space-y-2 shrink-0 bg-slate-50/50">
-          <button onClick={() => setRoute('home')} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 hover:bg-white hover:shadow-sm rounded-xl font-bold transition-all border border-transparent hover:border-slate-200">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+          <button onClick={() => setRoute('home')} className="w-full flex items-center gap-3 px-4 py-2.5 text-[12px] text-slate-600 hover:bg-white hover:shadow-sm rounded-xl font-bold transition-all border border-transparent hover:border-slate-200">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             {t('ওয়েবসাইটে ফিরুন', 'Back to Website')}
           </button>
-          <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 hover:shadow-sm rounded-xl font-bold transition-all border border-transparent hover:border-red-100">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" /></svg>
+          <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-2.5 text-[12px] text-red-600 hover:bg-red-50 hover:shadow-sm rounded-xl font-bold transition-all border border-transparent hover:border-red-100">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" /></svg>
             {t('লগআউট', 'Logout')}
           </button>
         </div>
@@ -108,7 +108,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setRoute }) => {
             {getSidebarLinks().find(l => l.id === activeTab)?.label}
           </h1>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-sm text-slate-600 bg-slate-100 border border-slate-200 rounded-full px-4 py-1.5 shadow-inner">
+            <div className="flex items-center gap-2 text-[12px] text-slate-600 bg-slate-100 border border-slate-200 rounded-full px-4 py-1.5 shadow-inner">
               <span className="font-medium">Role:</span>
               <select 
                 value={currentRole} 
@@ -490,7 +490,7 @@ const BloodDonationTab = () => {
       "নীলফামারী": ["নীলফামারী সদর", "সৈয়দপুর", "জলঢাকা", "ডোমার"],
       "গাইবান্ধা": ["গাইবান্ধা সদর", "গোবিন্দগঞ্জ", "পলাশবাড়ী"],
       "ঠাকুরগাঁও": ["ঠাকুরগাঁও সদর", "পীরগঞ্জ", "বালিয়াডাঙ্গী"],
-      "কুড়িগ্রাম": ["কুড়িগ্রাম সদর", "উলিপুর", "নাগেশ্বরী", "ভুরুঙ্গামারী"]
+      "কুড়িগ্রাম": ["কুড়িগ্রাম সদর", "উলিপুর", "নাագրেশ্বরী", "ভুরুঙ্গামারী"]
     },
     "ময়মনসিংহ": {
       "ময়মনসিংহ": ["ময়মনসিংহ সদর", "ত্রিশাল", "ভালুকা", "মুক্তাগাছা", "ফুলবাড়ীয়া"],
@@ -1097,49 +1097,117 @@ const UserDonorTab = () => {
 const SiteSettingsTab = () => {
   const [settings, setSettings] = useState({
     header: { type: 'text', text: 'WAB', image: '' },
-    footer: { type: 'text', text: 'WAB', image: '', tagline: '' }
+    hero: { 
+      tag: 'পরিবর্তনের অংশ হোন', 
+      title: 'একসাথে আমরা গড়বো', 
+      highlight: 'নতুন বাংলাদেশ', 
+      subtitle: 'আপনার ছোট একটি সাহায্য বদলে দিতে পারে অসংখ্য মানুষের জীবন। আসুন, কাঁধে কাঁধ মিলিয়ে কাজ করি একটি সুন্দর ভবিষ্যতের জন্য।',
+      bgImage: ''
+    },
+    footer: { type: 'text', text: 'WAB', image: '', tagline: 'একটি অলাভজনক প্রতিষ্ঠান যা বাংলাদেশের প্রত্যন্ত অঞ্চলে শিক্ষা, স্বাস্থ্য এবং স্বাবলম্বীতা নিয়ে কাজ করছে।' }
   });
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('siteSettings') || '{}');
-    if(saved.header || saved.footer) setSettings(prev => ({...prev, ...saved}));
+    setSettings(prev => ({
+      ...prev,
+      header: { ...prev.header, ...(saved.header || {}) },
+      hero: { ...prev.hero, ...(saved.hero || {}) },
+      footer: { ...prev.footer, ...(saved.footer || {}) }
+    }));
   }, []);
 
   const handleSave = (e: any) => {
     e.preventDefault();
     localStorage.setItem('siteSettings', JSON.stringify(settings));
     window.showToast('সাইট সেটিংস সফলভাবে সেভ হয়েছে!');
+    // trigger a custom event if needed to instantly update, but simple reload is enough for now or user can navigate
   };
 
-  const handleImg = (e: any, section: 'header' | 'footer') => {
+  const handleImg = (e: any, section: 'header' | 'hero' | 'footer') => {
     const file = e.target.files[0];
     if(file) {
       const reader = new FileReader();
-      reader.onloadend = () => setSettings(p => ({...p, [section]: {...p[section], image: reader.result}}));
+      reader.onloadend = () => {
+        if(section === 'hero') {
+           setSettings(p => ({...p, hero: {...p.hero, bgImage: reader.result as string}}));
+        } else {
+           setSettings(p => ({...p, [section]: {...p[section], image: reader.result as string}}));
+        }
+      };
       reader.readAsDataURL(file);
     }
   };
 
   return (
-    <div className="max-w-3xl bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+    <div className="max-w-4xl bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
       <h2 className="text-2xl font-extrabold text-slate-800 mb-8 border-b border-slate-100 pb-4">Site Settings</h2>
-      <form onSubmit={handleSave} className="space-y-8">
-        {/* Simplified for brevity, functional inputs */}
-        <div className="space-y-4">
-           <h3 className="font-bold text-lg">Header Logo</h3>
-           <select value={settings.header.type} onChange={e=>setSettings(p=>({...p, header:{...p.header, type: e.target.value}}))} className="border-2 p-2 rounded-xl">
-             <option value="text">Text</option><option value="image">Image</option>
-           </select>
+      <form onSubmit={handleSave} className="space-y-10">
+        
+        {/* Header Settings */}
+        <div className="space-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+           <h3 className="font-extrabold text-lg text-slate-800">Header Settings</h3>
+           <div>
+             <label className="block text-sm font-bold text-slate-700 mb-2">Logo Type</label>
+             <select value={settings.header.type} onChange={e=>setSettings(p=>({...p, header:{...p.header, type: e.target.value}}))} className="border-2 p-2.5 rounded-xl w-full max-w-xs focus:outline-none focus:border-blue-500 font-bold bg-white">
+               <option value="text">Text</option><option value="image">Image</option>
+             </select>
+           </div>
            {settings.header.type === 'text' ? 
-             <input value={settings.header.text} onChange={e=>setSettings(p=>({...p, header:{...p.header, text: e.target.value}}))} className="border-2 p-2 rounded-xl w-full" />
-             : <input type="file" onChange={e=>handleImg(e, 'header')} className="border-2 p-2 rounded-xl w-full" />
+             <div>
+               <label className="block text-sm font-bold text-slate-700 mb-2">Logo Text</label>
+               <input value={settings.header.text} onChange={e=>setSettings(p=>({...p, header:{...p.header, text: e.target.value}}))} className="border-2 p-3 rounded-xl w-full bg-white focus:outline-none focus:border-blue-500" />
+             </div>
+             : 
+             <div>
+               <label className="block text-sm font-bold text-slate-700 mb-2">Upload Logo Image</label>
+               <input type="file" accept="image/*" onChange={e=>handleImg(e, 'header')} className="border-2 p-2 rounded-xl w-full bg-white" />
+             </div>
            }
         </div>
-        <div className="space-y-4 border-t pt-4">
-           <h3 className="font-bold text-lg">Footer Settings</h3>
-           <textarea value={settings.footer.tagline} onChange={e=>setSettings(p=>({...p, footer:{...p.footer, tagline: e.target.value}}))} className="border-2 p-2 rounded-xl w-full" placeholder="Footer Tagline" />
+
+        {/* Hero Settings */}
+        <div className="space-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+           <h3 className="font-extrabold text-lg text-slate-800">Hero Section Settings</h3>
+           
+           <div>
+             <label className="block text-sm font-bold text-slate-700 mb-2">Background Image</label>
+             <input type="file" accept="image/*" onChange={e=>handleImg(e, 'hero')} className="border-2 p-2 rounded-xl w-full bg-white" />
+             {settings.hero.bgImage && <img src={settings.hero.bgImage} alt="preview" className="h-20 w-auto object-cover rounded-lg mt-3 shadow-sm" />}
+           </div>
+
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <div>
+               <label className="block text-sm font-bold text-slate-700 mb-2">Hero Tag / Badge</label>
+               <input value={settings.hero.tag} onChange={e=>setSettings(p=>({...p, hero:{...p.hero, tag: e.target.value}}))} className="border-2 p-3 rounded-xl w-full bg-white focus:outline-none focus:border-blue-500" />
+             </div>
+             <div>
+               <label className="block text-sm font-bold text-slate-700 mb-2">Title</label>
+               <input value={settings.hero.title} onChange={e=>setSettings(p=>({...p, hero:{...p.hero, title: e.target.value}}))} className="border-2 p-3 rounded-xl w-full bg-white focus:outline-none focus:border-blue-500" />
+             </div>
+           </div>
+
+           <div>
+             <label className="block text-sm font-bold text-slate-700 mb-2">Highlight Word (in Title)</label>
+             <input value={settings.hero.highlight} onChange={e=>setSettings(p=>({...p, hero:{...p.hero, highlight: e.target.value}}))} className="border-2 p-3 rounded-xl w-full bg-white focus:outline-none focus:border-blue-500" />
+           </div>
+
+           <div>
+             <label className="block text-sm font-bold text-slate-700 mb-2">Subtitle / Description</label>
+             <textarea rows={3} value={settings.hero.subtitle} onChange={e=>setSettings(p=>({...p, hero:{...p.hero, subtitle: e.target.value}}))} className="border-2 p-3 rounded-xl w-full bg-white focus:outline-none focus:border-blue-500" />
+           </div>
         </div>
-        <button type="submit" className="btn-primary">Save Settings</button>
+
+        {/* Footer Settings */}
+        <div className="space-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+           <h3 className="font-extrabold text-lg text-slate-800">Footer Settings</h3>
+           <div>
+             <label className="block text-sm font-bold text-slate-700 mb-2">Footer Tagline / Description</label>
+             <textarea rows={3} value={settings.footer.tagline} onChange={e=>setSettings(p=>({...p, footer:{...p.footer, tagline: e.target.value}}))} className="border-2 p-3 rounded-xl w-full bg-white focus:outline-none focus:border-blue-500" />
+           </div>
+        </div>
+
+        <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-4 rounded-xl text-lg shadow-lg shadow-blue-500/30 transition-all">Save All Settings</button>
       </form>
     </div>
   );

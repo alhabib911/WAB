@@ -28,7 +28,7 @@ const VideoGallery: React.FC = () => {
           <span className="inline-block py-1.5 px-4 rounded-full bg-blue-50 text-blue-600 font-extrabold text-sm tracking-widest mb-4 border border-blue-100 uppercase">
             ভিডিও গ্যালারি
           </span>
-          <h3 className="text-4xl md:text-5xl font-black text-slate-800 mb-4">
+          <h3 className="text-2xl md:text-3xl font-black text-slate-800 mb-4">
             আমাদের কাজের <span className="text-blue-600">ভিজ্যুয়াল গল্প</span>
           </h3>
         </div>
