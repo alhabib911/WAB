@@ -12,7 +12,9 @@ const defaultJobs: JobPost[] = [
     type: 'Full-time',
     deadline: '২৫ অক্টোবর, ২০২৪',
     salary: 'আলোচনা সাপেক্ষে',
-    applyEmail: 'hr@wab.org'
+    applyEmail: 'hr@wab.org',
+    status: 'Active',
+    postedByRole: 'Super Admin'
   },
   {
     id: 'job-2',
@@ -24,43 +26,46 @@ const defaultJobs: JobPost[] = [
     type: 'Contractual',
     deadline: '৩০ অক্টোবর, ২০২৪',
     salary: '৪৫,০০০ - ৫৫,০০০ টাকা',
-    applyEmail: 'medical@wab.org'
-  },
-  {
-    id: 'job-3',
-    title: 'কমিউনিকেশন ও পিআর এক্সিকিউটিভ',
-    description: 'প্রতিষ্ঠানের সকল পিআর কার্যক্রম পরিচালনা এবং সোশ্যাল মিডিয়ায় প্রতিষ্ঠানের ব্র্যান্ডিং নিশ্চিত করা।',
-    responsibility: '১. সোশ্যাল মিডিয়া কন্টেন্ট তৈরি।\n২. প্রেস রিলিজ লেখা।\n৩. ডোনারদের সাথে যোগাযোগ।',
-    location: 'ঢাকা (হেড অফিস)',
-    workMode: 'Hybrid',
-    type: 'Full-time',
-    deadline: '১২ নভেম্বর, ২০২৪',
-    salary: 'আলোচনা সাপেক্ষে',
-    applyEmail: 'career@wab.org'
+    applyEmail: 'medical@wab.org',
+    status: 'Active',
+    postedByRole: 'Super Admin'
   }
 ];
+
+// Define ModalOverlay outside to prevent input focus loss caused by React remounting
+const ModalOverlay: React.FC<{ children: React.ReactNode; onClose: () => void }> = ({ children, onClose }) => (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]">
+    <div className="absolute inset-0 cursor-pointer" onClick={onClose}></div>
+    <div className="relative bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
+      {children}
+    </div>
+  </div>
+);
 
 interface JobsProps {
   setRoute?: (route: string) => void;
 }
 
 const Jobs: React.FC<JobsProps> = ({ setRoute }) => {
-  const [jobs, setJobs] = useState<JobPost[]>([]);
+  const [jobs, setJobs] = useState<any[]>([]);
+  const [userRole, setUserRole] = useState<string | null>(null);
   
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [selectedJob, setSelectedJob] = useState<JobPost | null>(null);
+  const [selectedJob, setSelectedJob] = useState<any | null>(null);
 
-  // New Job Form State
   const [newJob, setNewJob] = useState({
     title: '', description: '', responsibility: '', location: '',
     workMode: 'Onsite', type: 'Full-time', deadline: '', salary: '', applyEmail: ''
   });
 
   useEffect(() => {
+    const role = localStorage.getItem('userRole');
+    setUserRole(role);
+
     const storedJobs = localStorage.getItem('jobsList');
     if (storedJobs) {
-      setJobs(JSON.parse(storedJobs));
+      setJobs(JSON.parse(storedJobs).filter((j: any) => j.status !== 'Closed'));
     } else {
       setJobs(defaultJobs);
       localStorage.setItem('jobsList', JSON.stringify(defaultJobs));
@@ -73,30 +78,27 @@ const Jobs: React.FC<JobsProps> = ({ setRoute }) => {
 
   const handleAddJob = (e: React.FormEvent) => {
     e.preventDefault();
-    const jobEntry: JobPost = { id: Date.now().toString(), ...newJob };
-    const updatedJobs = [jobEntry, ...jobs];
+    const storedJobs = JSON.parse(localStorage.getItem('jobsList') || '[]');
+    const jobEntry = { 
+      id: Date.now().toString(), 
+      ...newJob, 
+      status: 'Active', 
+      postedByRole: userRole || 'Guest' 
+    };
+    const updatedJobs = [jobEntry, ...storedJobs];
     
-    setJobs(updatedJobs);
+    setJobs(updatedJobs.filter(j => j.status !== 'Closed'));
     localStorage.setItem('jobsList', JSON.stringify(updatedJobs));
     
     setShowAddModal(false);
     setNewJob({ title: '', description: '', responsibility: '', location: '', workMode: 'Onsite', type: 'Full-time', deadline: '', salary: '', applyEmail: '' });
+    window.showToast('সফলভাবে নতুন জব পোস্ট করা হয়েছে!', 'success');
   };
 
-  const openDetails = (job: JobPost) => {
+  const openDetails = (job: any) => {
     setSelectedJob(job);
     setShowDetailsModal(true);
   };
-
-  // UI Helper for Modal
-  const ModalOverlay: React.FC<{ children: React.ReactNode; onClose: () => void }> = ({ children, onClose }) => (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]">
-      <div className="absolute inset-0 cursor-pointer" onClick={onClose}></div>
-      <div className="relative bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
-        {children}
-      </div>
-    </div>
-  );
 
   return (
     <section id="jobs" className="py-24 bg-slate-50 relative border-t border-slate-200">
@@ -112,8 +114,10 @@ const Jobs: React.FC<JobsProps> = ({ setRoute }) => {
             </p>
           </div>
           <button 
-            onClick={() => setShowAddModal(true)}
-            className="shrink-0 bg-ngo-blue hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-full transition-colors flex items-center gap-2 shadow-lg shadow-blue-500/30"
+            onClick={() => userRole ? setShowAddModal(true) : null}
+            disabled={!userRole}
+            className={`shrink-0 font-bold px-6 py-3 rounded-full transition-colors flex items-center gap-2 shadow-lg ${userRole ? 'bg-ngo-blue hover:bg-blue-700 text-white shadow-blue-500/30' : 'bg-slate-300 text-slate-500 cursor-not-allowed'}`}
+            title={!userRole ? "নতুন জব পোস্ট করতে লগইন করুন" : ""}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
             নতুন জব যোগ করুন
@@ -189,24 +193,24 @@ const Jobs: React.FC<JobsProps> = ({ setRoute }) => {
             <form onSubmit={handleAddJob} className="space-y-4">
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">জবের টাইটেল</label>
-                <input type="text" name="title" value={newJob.title} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3" required />
+                <input type="text" name="title" value={newJob.title} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3 focus:outline-none focus:border-ngo-blue" required />
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">জব ডেসক্রিপশন</label>
-                <textarea name="description" value={newJob.description} onChange={handleInputChange} rows={3} className="w-full border rounded-lg py-2 px-3" required></textarea>
+                <textarea name="description" value={newJob.description} onChange={handleInputChange} rows={3} className="w-full border rounded-lg py-2 px-3 focus:outline-none focus:border-ngo-blue" required></textarea>
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">দায়িত্বসমূহ (Responsibility)</label>
-                <textarea name="responsibility" value={newJob.responsibility} onChange={handleInputChange} rows={3} className="w-full border rounded-lg py-2 px-3" placeholder="১. ...&#10;২. ..." required></textarea>
+                <textarea name="responsibility" value={newJob.responsibility} onChange={handleInputChange} rows={3} className="w-full border rounded-lg py-2 px-3 focus:outline-none focus:border-ngo-blue" placeholder="১. ...&#10;২. ..." required></textarea>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-1">স্থান (Location)</label>
-                  <input type="text" name="location" value={newJob.location} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3" required />
+                  <input type="text" name="location" value={newJob.location} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3 focus:outline-none focus:border-ngo-blue" required />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-1">কাজের ধরণ (Work Mode)</label>
-                  <select name="workMode" value={newJob.workMode} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3" required>
+                  <select name="workMode" value={newJob.workMode} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3 focus:outline-none focus:border-ngo-blue" required>
                     <option value="Onsite">Onsite</option>
                     <option value="Remote">Remote</option>
                     <option value="Hybrid">Hybrid</option>
@@ -214,7 +218,7 @@ const Jobs: React.FC<JobsProps> = ({ setRoute }) => {
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-1">চুক্তির ধরণ (Type)</label>
-                  <select name="type" value={newJob.type} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3" required>
+                  <select name="type" value={newJob.type} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3 focus:outline-none focus:border-ngo-blue" required>
                     <option value="Full-time">Full-time</option>
                     <option value="Part-time">Part-time</option>
                     <option value="Contractual">Contractual</option>
@@ -222,18 +226,18 @@ const Jobs: React.FC<JobsProps> = ({ setRoute }) => {
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-1">আবেদনের শেষ তারিখ</label>
-                  <input type="text" name="deadline" value={newJob.deadline} onChange={handleInputChange} placeholder="যেমন: ৩০ অক্টোবর, ২০২৪" className="w-full border rounded-lg py-2 px-3" required />
+                  <input type="text" name="deadline" value={newJob.deadline} onChange={handleInputChange} placeholder="যেমন: ৩০ অক্টোবর, ২০২৪" className="w-full border rounded-lg py-2 px-3 focus:outline-none focus:border-ngo-blue" required />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-1">বেতন (Salary)</label>
-                  <input type="text" name="salary" value={newJob.salary} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3" required />
+                  <input type="text" name="salary" value={newJob.salary} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3 focus:outline-none focus:border-ngo-blue" required />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-1">আবেদনের ইমেইল</label>
-                  <input type="email" name="applyEmail" value={newJob.applyEmail} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3" required />
+                  <input type="email" name="applyEmail" value={newJob.applyEmail} onChange={handleInputChange} className="w-full border rounded-lg py-2 px-3 focus:outline-none focus:border-ngo-blue" required />
                 </div>
               </div>
-              <button type="submit" className="w-full bg-ngo-blue text-white font-bold py-3 rounded-lg mt-4">
+              <button type="submit" className="w-full bg-ngo-blue text-white font-bold py-3 rounded-lg mt-4 shadow-md transition-transform hover:-translate-y-0.5">
                 জব পোস্ট করুন
               </button>
             </form>
@@ -281,12 +285,9 @@ const Jobs: React.FC<JobsProps> = ({ setRoute }) => {
               </div>
             </div>
             
-            <a 
-              href={`mailto:${selectedJob.applyEmail}?subject=Application for ${selectedJob.title}`}
-              className="block w-full text-center bg-ngo-blue hover:bg-blue-700 text-white font-bold py-4 rounded-xl text-lg transition-colors shadow-lg shadow-blue-500/20"
-            >
-              ইমেইলের মাধ্যমে আবেদন করুন
-            </a>
+            <div className="bg-ngo-blue text-white text-center py-4 rounded-xl text-lg shadow-lg shadow-blue-500/20">
+              <span className="font-normal">Apply now:</span> <span className="font-bold ml-1">{selectedJob.applyEmail}</span>
+            </div>
           </div>
         </ModalOverlay>
       )}

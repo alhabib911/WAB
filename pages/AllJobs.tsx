@@ -1,36 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { JobPost } from '../types';
 
+// Define ModalOverlay outside to prevent remounting issues
+const ModalOverlay: React.FC<{ children: React.ReactNode; onClose: () => void }> = ({ children, onClose }) => (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]">
+    <div className="absolute inset-0 cursor-pointer" onClick={onClose}></div>
+    <div className="relative bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
+      {children}
+    </div>
+  </div>
+);
+
 interface AllJobsProps {
   setRoute: (route: string) => void;
 }
 
 const AllJobs: React.FC<AllJobsProps> = ({ setRoute }) => {
-  const [jobs, setJobs] = useState<JobPost[]>([]);
+  const [jobs, setJobs] = useState<any[]>([]);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [selectedJob, setSelectedJob] = useState<JobPost | null>(null);
+  const [selectedJob, setSelectedJob] = useState<any | null>(null);
 
   useEffect(() => {
     const storedJobs = localStorage.getItem('jobsList');
     if (storedJobs) {
-      setJobs(JSON.parse(storedJobs));
+      setJobs(JSON.parse(storedJobs).filter((j:any) => j.status !== 'Closed'));
     }
   }, []);
 
-  const openDetails = (job: JobPost) => {
+  const openDetails = (job: any) => {
     setSelectedJob(job);
     setShowDetailsModal(true);
   };
-
-  // UI Helper for Modal
-  const ModalOverlay: React.FC<{ children: React.ReactNode; onClose: () => void }> = ({ children, onClose }) => (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]">
-      <div className="absolute inset-0 cursor-pointer" onClick={onClose}></div>
-      <div className="relative bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
-        {children}
-      </div>
-    </div>
-  );
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
@@ -140,12 +140,9 @@ const AllJobs: React.FC<AllJobsProps> = ({ setRoute }) => {
               </div>
             </div>
             
-            <a 
-              href={`mailto:${selectedJob.applyEmail}?subject=Application for ${selectedJob.title}`}
-              className="block w-full text-center bg-ngo-blue hover:bg-blue-700 text-white font-bold py-4 rounded-xl text-lg transition-colors shadow-lg shadow-blue-500/20"
-            >
-              ইমেইলের মাধ্যমে আবেদন করুন
-            </a>
+            <div className="bg-ngo-blue text-white text-center py-4 rounded-xl text-lg shadow-lg shadow-blue-500/20">
+              <span className="font-normal">Apply now:</span> <span className="font-bold ml-1">{selectedJob.applyEmail}</span>
+            </div>
           </div>
         </ModalOverlay>
       )}

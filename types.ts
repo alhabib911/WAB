@@ -8,15 +8,15 @@ export interface Donor {
 export interface ImpactLocation {
   id: string;
   name: string;
-  x: number; // Percentage from left (0-100)
-  y: number; // Percentage from top (0-100)
+  x: number;
+  y: number;
   title: string;
   description: string;
   imageUrl: string;
   donationGoal: number;
   raisedAmount: number;
   donorCount: number;
-  benefitedCount: number; // Added field for benefited people
+  benefitedCount: number;
   donors: Donor[];
 }
 
@@ -26,11 +26,14 @@ export interface JobPost {
   description: string;
   responsibility: string;
   location: string;
-  workMode: string; // Onsite, Remote
-  type: string;     // Full-time, Part-time
+  workMode: string;
+  type: string;
   deadline: string;
   salary: string;
   applyEmail: string;
+  status?: string;
+  postedByRole?: string;
+  postedBy?: string;
 }
 
 export interface Volunteer {
@@ -51,4 +54,13 @@ export interface Product {
   price: number;
   imageUrl: string;
   artisan: string;
+}
+
+declare global {
+  interface Window {
+    showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+    lang: 'bn' | 'en';
+    t: (bnText: string, enText: string) => string;
+    setLanguage: (lang: 'bn' | 'en') => void;
+  }
 }
